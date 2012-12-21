@@ -36,3 +36,19 @@ class AlbumHoldingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AlbumHolding
         fields = ('album_id', 'active', 'change_date', 'user_id')
+
+class AlbumArtistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        exclude = ('id',)
+        depth = 1
+
+class HolderSerializer(serializers.ModelSerializer):
+    album = AlbumArtistSerializer()
+
+    class Meta:
+        model = AlbumHolding
+        exclude = ('id', 'user',)
+        depth = 2
+
+

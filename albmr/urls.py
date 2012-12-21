@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     # url(r'^albmr/', include('albmr.foo.urls')),
 
     # API - Django REST Framework
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/', include('tracker.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

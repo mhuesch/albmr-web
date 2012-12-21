@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import generics
 from tracker.models import Album, Artist, AlbumHolding
-from tracker.serializers import UserSerializer, GroupSerializer, AlbumSerializer, ArtistSerializer, AlbumHoldingSerializer
+from tracker.serializers import UserSerializer, GroupSerializer, AlbumSerializer, ArtistSerializer, AlbumHoldingSerializer, HolderSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -59,13 +59,15 @@ class AlbumHoldingDetail(generics.RetrieveUpdateDestroyAPIView):
     model = AlbumHolding
     serializer_class = AlbumHoldingSerializer
 
-# API view for AlbumHoldings of a User
+# API view for Holders of a User
 @api_view(['GET'])
-def user_albumholding_list(request, pk):
+def user_holder_list(request, pk):
     if request.method == 'GET':
         albumholdings = AlbumHolding.objects.filter(user=pk)
-        serializer = AlbumHoldingSerializer(albumholdings)
+        serializer = HolderSerializer(albumholdings)
         return Response(serializer.data)
+
+
 
 
 

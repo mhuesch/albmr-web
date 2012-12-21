@@ -21,6 +21,9 @@ class AlbumHolding(models.Model):
     change_date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
 
+    class Meta:
+        ordering = ('change_date',)
+
     def __unicode__(self):
         return u'%s - %s' % (self.user.username, self.album.name)
 
