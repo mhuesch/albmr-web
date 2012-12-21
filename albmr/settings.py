@@ -122,7 +122,14 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'gunicorn',
+    'rest_framework',
+    'south',
+    'tracker',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
