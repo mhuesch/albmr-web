@@ -22,7 +22,7 @@ class AlbumHolding(models.Model):
     user = models.ForeignKey(User)
 
     class Meta:
-        ordering = ('change_date',)
+        ordering = ('-change_date',)
 
     def __unicode__(self):
         return u'%s - %s' % (self.user.username, self.album.name)

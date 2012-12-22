@@ -7,8 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'albmr.views.home', name='home'),
-    # url(r'^albmr/', include('albmr.foo.urls')),
+    url(r'^$', 'tracker.views.index', name='index'),
 
     # API - Django REST Framework
     url(r'^api/v1/', include('tracker.urls')),
