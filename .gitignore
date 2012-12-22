@@ -1,3 +1,6 @@
 .DS_Store
 *.pyc
 .env
+static/config
+static/scripts
+static/test
