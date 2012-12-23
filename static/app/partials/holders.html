@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div id="albmr-app" class="container-fluid">
   <div class="row-fluid">
-    <div class="span10">
+    <div>
 
-      <ul class="holders">
-        <li ng-repeat="holder in holders">
-          <p>{{holder.album.name}}</p>
+      <ul id="holder-list">
+        <li ng-repeat="holder in holders" ng-class="{active: holder.active, inactive: !holder.active}">
+            <span class="album">{{holder.album.name}}</span>
         </li>
       </ul>
 

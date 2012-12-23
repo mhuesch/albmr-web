@@ -1,5 +1,84 @@
 /* app css stylesheet */
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.4em;
+    background: #eaeaea url('/static/app/assets/bg.png');
+    color: #4d4d4d;
+    width: 90%;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+#albmr-app {
+    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
+    margin: 130px 0 40px 0;
+    border: 1px solid #ccc;
+    position: relative;
+    top:-100px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+                0 25px 50px 0 rgba(0, 0, 0, 0.15);
+}
+
+#holder-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#holder-list li {
+    position: relative;
+    border-bottom: 1px dotted #ccc;
+    display: block;
+    padding: 10px 11px 10px 11px;
+}
+
+#todo-list li:last-child {
+    border-bottom: none;
+}
+
+.active {
+}
+
+.inactive {
+}
+
+.album {
+    font-size: 16px;
+    margin: 0 0 0 3%;
+    word-wrap: break-word;
+}
+
+.artist {
+    font-size: 12px;
+    width: 30%;
+    word-wrap: break-word;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
