@@ -1,13 +1,26 @@
 <div id="albmr-app" class="container-fluid">
-  <div class="row-fluid">
-    <div>
+  <div id="topper">
+    <ul id="filters">
+      <li>
+        <a ng-class="{selected: display_type == 'active'} " href="#{{route_path}}">Active</a>
+      </li>
+      <li>
+        <a ng-class="{selected: display_type == 'inactive'} " href="#{{route_path}}?display=inactive">Inactive</a>
+      </li>
+      <li>
+        <a ng-class="{selected: display_type == 'all'} " href="#{{route_path}}?display=all">All</a>
+      </li>
+      <li>
+        <a class="plus-button" href="#/add">+</a>
+      </li>
+    </ul>
+  </div>
 
-      <ul id="holder-list">
-        <li ng-repeat="holder in holders" ng-class="{active: holder.active, inactive: !holder.active}">
-            <span class="album">{{holder.album.name}}</span>
-        </li>
-      </ul>
-
-    </div>
+  <div>
+    <ul id="holder-list">
+      <li ng-repeat="holder in holders | filter:activeFilter" ng-class="{active: holder.active, inactive: !holder.active}">
+          <span class="album">{{holder.album.name}}</span>
+      </li>
+    </ul>
   </div>
 </div>
