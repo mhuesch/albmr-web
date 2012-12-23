@@ -78,6 +78,10 @@ body {
     border-bottom: none;
 }
 
+.active,
+.inactive {
+}
+
 .active {
 }
 
@@ -88,6 +92,8 @@ body {
     font-size: 16px;
     margin: 0 0 0 3%;
     word-wrap: break-word;
+    float: left;
+    width: 85%;
 }
 
 .artist {
@@ -96,6 +102,13 @@ body {
     word-wrap: break-word;
 }
 
+.info-button {
+    width: 10%;
+    float: right;
+    color: #2B4A2B;
+    margin: 2px;
+    text-decoration: none;
+}
 
 
 

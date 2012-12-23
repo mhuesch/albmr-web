@@ -20,6 +20,8 @@
     <ul id="holder-list">
       <li ng-repeat="holder in holders | filter:activeFilter" ng-class="{active: holder.active, inactive: !holder.active}">
           <span class="album">{{holder.album.name}}</span>
+          <a class="info-button">info</a>
+          <div class="spacer" style="clear: both;"></div>
       </li>
     </ul>
   </div>
