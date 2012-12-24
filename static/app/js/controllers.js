@@ -27,9 +27,13 @@ function HoldersCtrl($scope, $routeParams, $location, Holders) {
         } else {
             $scope.expandedHolder = holder;
         }
-    }
+    };
+
+    $scope.removeHolder = function ( holder ) {
+        $scope.holders.splice($scope.holders.indexOf(holder), 1);
+    };
 }
 
 function AddCtrl($scope) {
-    
+
 }
