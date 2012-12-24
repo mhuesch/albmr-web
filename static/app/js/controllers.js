@@ -9,6 +9,8 @@ WelcomeCtrl.$inject = [];
 function HoldersCtrl($scope, $routeParams, $location, Holders) {
     var holders = $scope.holders = Holders.query({userId: $routeParams.userId});
 
+    $scope.expandedHolder = null;
+
     $scope.$watch( 'routeParams.display', function( type ) {
         $scope.display_type = ($routeParams.display == 'inactive') ?
           'inactive' : ($routeParams.display == 'all') ?
@@ -18,6 +20,14 @@ function HoldersCtrl($scope, $routeParams, $location, Holders) {
           { active: false } : ($routeParams.display == 'all') ?
             null : { active: true };
     });
+
+    $scope.toggleExpand = function ( holder ) {
+        if ($scope.expandedHolder == holder) {
+            $scope.expandedHolder = null;
+        } else {
+            $scope.expandedHolder = holder;
+        }
+    }
 }
 
 function AddCtrl($scope) {
