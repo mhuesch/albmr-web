@@ -31,11 +31,11 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 
 class AlbumHoldingSerializer(serializers.HyperlinkedModelSerializer):
     album_id = serializers.PrimaryKeyRelatedField(source='album')
-    user_id = serializers.PrimaryKeyRelatedField(source='user')
+    change_date = serializers.CharField(source='change_date', read_only=True)
 
     class Meta:
         model = AlbumHolding
-        fields = ('album_id', 'active', 'change_date', 'user_id')
+        fields = ('album_id', 'active', 'change_date',)
 
 class AlbumArtistSerializer(serializers.ModelSerializer):
     class Meta:

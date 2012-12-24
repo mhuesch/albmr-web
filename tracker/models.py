@@ -18,7 +18,7 @@ class Album(models.Model):
 class AlbumHolding(models.Model):
     album = models.ForeignKey(Album, related_name='holdings')
     active = models.BooleanField(default=False)
-    change_date = models.DateTimeField(auto_now=True)
+    change_date = models.DateTimeField(auto_now=True,blank=True)
     user = models.ForeignKey(User)
 
     class Meta:
