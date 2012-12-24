@@ -9,7 +9,7 @@ WelcomeCtrl.$inject = [];
 function HoldersCtrl($scope, $routeParams, $location, Holders) {
     var holders = $scope.holders = Holders.query({userId: $routeParams.userId});
 
-    $scope.expandedHolder = null;
+    $scope.holder_expanded = null;
 
     $scope.$watch( 'routeParams.display', function( type ) {
         $scope.display_type = ($routeParams.display == 'inactive') ?
@@ -22,15 +22,18 @@ function HoldersCtrl($scope, $routeParams, $location, Holders) {
     });
 
     $scope.toggleExpand = function ( holder ) {
-        if ($scope.expandedHolder == holder) {
-            $scope.expandedHolder = null;
+        if ($scope.holder_expanded == holder) {
+            $scope.holder_expanded = null;
         } else {
-            $scope.expandedHolder = holder;
+            $scope.holder_expanded = holder;
         }
     };
 
     $scope.removeHolder = function ( holder ) {
-        $scope.holders.splice($scope.holders.indexOf(holder), 1);
+        holders.splice(holders.indexOf(holder), 1);
+        console.log("Holder removed");
+        console.dir(holder);
+        // Call a function to send a delete to the server for this holder
     };
 }
 

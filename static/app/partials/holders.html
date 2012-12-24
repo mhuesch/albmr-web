@@ -20,10 +20,10 @@
     <ul id="holder-list">
       <li ng-repeat="holder in holders | filter:activeFilter" ng-class="{active: holder.active, inactive: !holder.active}" ng-click="toggleExpand(holder)">
           <span class="album">{{holder.album.name}}</span>
-          <button ng-click="removeHolder(holder)" ng-class="{destroy: holder == expandedHolder, hidden: holder != expandedHolder}">✖</button>
+          <button ng-click="removeHolder(holder)" ng-class="{destroy: holder == holder_expanded, hidden: holder != holder_expanded}">✖</button>
           <!-- <a class="info-button">info</a> -->
           <div class="spacer" style="clear: both;"></div>
-          <div ng-class="{hidden: holder != expandedHolder}">
+          <div ng-class="{hidden: holder != holder_expanded}">
             <p class="artist"><span style="font-style:italic">by</span> {{holder.album.artist.name}}</p>
           </div>
       </li>

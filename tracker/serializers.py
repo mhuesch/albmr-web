@@ -48,7 +48,7 @@ class HolderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AlbumHolding
-        exclude = ('id', 'user',)
+        exclude = ('user',)
         depth = 2
 
 
