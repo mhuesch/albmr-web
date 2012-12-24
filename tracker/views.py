@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from tracker.models import Album, Artist, AlbumHolding
 from tracker.serializers import UserSerializer, GroupSerializer, AlbumSerializer, ArtistSerializer, AlbumHoldingSerializer, HolderSerializer
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from tracker.permissions import IsOwner, OwnsHolders
 
 # Index view loads angular app
 def index(request):
@@ -16,6 +17,7 @@ class UserList(generics.ListCreateAPIView):
     """
     model = User
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -23,6 +25,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     model = User
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 class GroupList(generics.ListCreateAPIView):
     """
@@ -30,6 +33,7 @@ class GroupList(generics.ListCreateAPIView):
     """
     model = Group
     serializer_class = GroupSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -37,6 +41,7 @@ class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     model = Group
     serializer_class = GroupSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 class ArtistList(generics.ListCreateAPIView):
     model = Artist
@@ -58,12 +63,20 @@ class AlbumHoldingList(generics.ListCreateAPIView):
     model = AlbumHolding
     serializer_class = AlbumHoldingSerializer
 
+    def pre_save(self, obj):
+        obj.user = self.request.user
+
 class AlbumHoldingDetail(generics.RetrieveUpdateDestroyAPIView):
     model = AlbumHolding
     serializer_class = AlbumHoldingSerializer
+    permission_classes = (IsOwner,)
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
 
 # API view for Holders of a User
 @api_view(['GET'])
+@permission_classes((OwnsHolders, ))
 def user_holder_list(request, pk):
     if request.method == 'GET':
         albumholdings = AlbumHolding.objects.filter(user=pk)
