@@ -38,18 +38,43 @@ function HoldersCtrl($scope, $routeParams, $location, Holders, AlbumHolding) {
         var answer = confirm("Are you sure you want to remove this album?");
         if (answer) {
             var albumHoldingPromise = AlbumHolding.delete(holder.id);
-            albumHoldingPromise.then(function(status) {
-                if (status == 204) {
+            albumHoldingPromise.then(
+                // If server delete successful, remove from holder-list
+                function(status) {
                     $scope.spliceHolder(holder);
-                } else {
+                },
+                // If server delete unsuccessful, notify user.
+                function() {
                     alert("Delete failed");
                 }
-            });
+            );
         }
     };
 
     $scope.spliceHolder = function ( holder ) {
         holders.splice(holders.indexOf(holder), 1);
+    };
+
+    $scope.getToggleLabel = function ( active ) {
+        if (active) {
+            return "drop";
+        } else {
+            return "bump";
+        }
+    };
+
+    $scope.toggleHolder = function ( holder ) {
+        var obj_albumHolding = { id: holder.id, album_id: holder.album.id, active: !holder.active };
+        var albumHoldingPromise = AlbumHolding.put(obj_albumHolding);
+        albumHoldingPromise.then(
+            // PUT was successful, toggle the holders active property
+            function(response) {
+                holder.active = !holder.active;
+            },
+            // PUT was unsuccessful. Do nothing
+            function(response) {
+            }
+        );
     };
 }
 

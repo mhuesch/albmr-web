@@ -98,10 +98,29 @@ body {
 }
 
 .artist {
+    float: left;
+    width: 80%;
     font-size: 12px;
     margin: 5px 0 0 3%;
-    width: 70%;
     word-wrap: break-word;
+}
+
+.toggle_drop,
+.toggle_bump {
+    float: right;
+    width: 15%;
+    text-align: right;
+    color: #83756f;
+    margin: 2px;
+    text-decoration: underline;
+}
+
+.toggle_drop {
+
+}
+
+.toggle_bump {
+
 }
 
 .info-button {
@@ -127,7 +146,7 @@ body {
     bottom: 0;
     width: 40px;
     height: 40px;
-    margin: auto 0;
+    margin: 0 0;
     font-size: 22px;
     color: #a88a8a;
     -webkit-transition: all 0.2s;

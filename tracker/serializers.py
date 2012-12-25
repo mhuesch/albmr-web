@@ -40,7 +40,6 @@ class AlbumHoldingSerializer(serializers.HyperlinkedModelSerializer):
 class AlbumArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        exclude = ('id',)
         depth = 1
 
 class HolderSerializer(serializers.ModelSerializer):
