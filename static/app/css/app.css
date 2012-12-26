@@ -74,7 +74,7 @@ body {
     padding: 10px 11px 10px 11px;
 }
 
-#todo-list li:last-child {
+#holder-list li:last-child {
     border-bottom: none;
 }
 
