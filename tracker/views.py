@@ -74,6 +74,14 @@ class AlbumHoldingDetail(generics.RetrieveUpdateDestroyAPIView):
     def pre_save(self, obj):
         obj.user = self.request.user
 
+# API view for Albums of an Artist
+@api_view(['GET'])
+def artist_album_list(request, pk):
+    if request.method == 'GET':
+        albums = Album.objects.filter(artist_id=pk)
+        serializer = AlbumSerializer(albums)
+        return Response(serializer.data)
+
 # API view for Holders of a User
 @api_view(['GET'])
 @permission_classes((OwnsHolders, ))

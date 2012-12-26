@@ -18,16 +18,18 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name', 'permissions')
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(source='id', read_only=True)
+
     class Meta:
         model = Artist
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
-    artist_id = serializers.PrimaryKeyRelatedField(source='artist')
+    id = serializers.IntegerField(source='id', read_only=True)
 
     class Meta:
         model = Album
-        fields = ('name', 'artist_id')
+        fields = ('id', 'name',)
 
 class AlbumHoldingSerializer(serializers.HyperlinkedModelSerializer):
     album_id = serializers.PrimaryKeyRelatedField(source='album')

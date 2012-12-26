@@ -28,23 +28,23 @@ angular.module('albmr.services', ['ngResource']).
 
         AlbumHolding.put = function(ah) {
             return $http.put('api/v1/albumholding/' + ah.id + '/', ah, {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
-                return new AlbumHolding(response.data);
+                return response;
             });
         };
 
         AlbumHolding.delete = function(id) {
             return $http.delete('api/v1/albumholding/' + id + '/', {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
-                return response.status;
+                return response;
             });
         };
 
         return AlbumHolding;
-
-/*
-        return $resource('api/v1/albumholding/:ahId/', {}, {
-            update: {method:'PUT', headers: {'X-CSRFToken' : csrftoken }},
-            delete: {method:'DELETE', headers: {'X-CSRFToken' : csrftoken }}
-        });
-*/
+    }).
+    factory('Artist', function($http) {
+        Artist.query = function() {
+            return $http.get('api/v1/artist/', {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
+                return response;
+            });
+        };
     });
 
