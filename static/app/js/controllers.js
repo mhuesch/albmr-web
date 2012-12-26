@@ -41,7 +41,6 @@ function HoldersCtrl($scope, $routeParams, $location, Holders, AlbumHolding) {
             albumHoldingPromise.then(
                 // If server delete successful, remove from holder-list
                 function(response) {
-                    console.log(response);
                     $scope.spliceHolder(holder);
                 },
                 // If server delete unsuccessful, notify user.
@@ -70,11 +69,11 @@ function HoldersCtrl($scope, $routeParams, $location, Holders, AlbumHolding) {
         albumHoldingPromise.then(
             // PUT was successful, toggle the holders active property
             function(response) {
-                console.log(response);
                 holder.active = !holder.active;
             },
-            // PUT was unsuccessful. Do nothing
+            // PUT was unsuccessful. Notify user
             function(response) {
+                alert("Toggle failed")
             }
         );
     };
