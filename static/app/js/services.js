@@ -15,7 +15,7 @@ angular.module('albmr.services', ['ngResource']).
 
         Holders.query = function(id) {
             return $http.get('api/v1/user/' + id + '/holders/').then(function(response) {
-                return response.data;
+                return response;
             });
         };
 
@@ -58,5 +58,18 @@ angular.module('albmr.services', ['ngResource']).
         }
 
         return Artist;
+    }).
+    factory('Album', function($http) {
+        var Album = function(data) {
+            angular.extend(this, data);
+        }
+
+        Album.artist_query_autocomplete = function(id) {
+            return $http.get('api/v1/autocomplete/artist/' + id + '/albums/', {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
+                return response;
+            });
+        }
+
+        return Album;
     });
 

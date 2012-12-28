@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from tracker.models import Album, Artist, AlbumHolding
-from tracker.serializers import UserSerializer, GroupSerializer, AlbumSerializer, ArtistSerializer, AlbumHoldingSerializer, HolderSerializer, ArtistAutocompleteSerializer
+from tracker.serializers import UserSerializer, GroupSerializer, AlbumSerializer, ArtistSerializer, AlbumHoldingSerializer, HolderSerializer, ArtistAutocompleteSerializer, AlbumAutocompleteSerializer
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -74,12 +74,25 @@ class AlbumHoldingDetail(generics.RetrieveUpdateDestroyAPIView):
     def pre_save(self, obj):
         obj.user = self.request.user
 
+#
+#
 # Autocomplete views
+#
+# All artists
 class ArtistAutocompleteList(generics.ListAPIView):
     model = Artist
     serializer_class = ArtistAutocompleteSerializer
+#
+# All albums of an artist
+@api_view(['GET'])
+def artist_album_autocomplete_list(request, pk):
+    if request.method == 'GET':
+        albums = Album.objects.filter(artist_id=pk)
+        serializer = AlbumAutocompleteSerializer(albums)
+        return Response(serializer.data)
 
-
+#
+#
 # API view for Albums of an Artist
 @api_view(['GET'])
 def artist_album_list(request, pk):
