@@ -24,6 +24,14 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
         model = Artist
         fields = ('id', 'name',)
 
+class ArtistAutocompleteSerializer(serializers.HyperlinkedModelSerializer):
+    label = serializers.CharField(source='name', read_only=True)
+    value = serializers.IntegerField(source='id', read_only=True)
+
+    class Meta:
+        model = Artist
+        fields = ('label', 'value')
+
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(source='id', read_only=True)
 

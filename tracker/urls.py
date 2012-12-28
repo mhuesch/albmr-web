@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from tracker.views import UserList, UserDetail, GroupList, GroupDetail, ArtistList, ArtistDetail, AlbumList, AlbumDetail, AlbumHoldingList, AlbumHoldingDetail, artist_album_list, user_holder_list
+from tracker.views import UserList, UserDetail, GroupList, GroupDetail, ArtistList, ArtistDetail, AlbumList, AlbumDetail, AlbumHoldingList, AlbumHoldingDetail, artist_album_list, user_holder_list, ArtistAutocompleteList
 
 urlpatterns = patterns('',
     url(r'^user/$', UserList.as_view(), name='user-list'),
@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^album/(?P<pk>\d+)/$', AlbumDetail.as_view(), name='album-detail'),
     url(r'^albumholding/$', AlbumHoldingList.as_view(), name='albumholding-list'),
     url(r'^albumholding/(?P<pk>\d+)/$', AlbumHoldingDetail.as_view(), name='albumholding-detail'),
+
+    # Autocomplete views
+    url(r'^autocomplete/artist/$', ArtistAutocompleteList.as_view(), name='artist-autocomplete'),
 
     # Filtered views
     url(r'^artist/(?P<pk>\d+)/albums/$', artist_album_list),

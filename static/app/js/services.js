@@ -41,10 +41,22 @@ angular.module('albmr.services', ['ngResource']).
         return AlbumHolding;
     }).
     factory('Artist', function($http) {
+        var Artist = function(data) {
+            angular.extend(this, data);
+        }
+
         Artist.query = function() {
             return $http.get('api/v1/artist/', {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
                 return response;
             });
         };
+
+        Artist.query_autocomplete = function() {
+            return $http.get('api/v1/autocomplete/artist/', {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
+                return response;
+            });
+        }
+
+        return Artist;
     });
 
