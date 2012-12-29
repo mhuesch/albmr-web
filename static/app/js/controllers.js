@@ -7,11 +7,12 @@ function WelcomeCtrl() {}
 WelcomeCtrl.$inject = [];
 
 function HoldersCtrl($scope, $routeParams, $location, Holders, AlbumHolding) {
+    $scope.userId = $routeParams.userId;
     var holders = $scope.holders = null;
 
     var holdersPromise = Holders.query($routeParams.userId);
-    holdersPromise.then(function(hs) {
-        holders = $scope.holders = hs;
+    holdersPromise.then(function(response) {
+        holders = $scope.holders = response.data;
     });
 
     $scope.holder_expanded = null;
@@ -64,8 +65,8 @@ function HoldersCtrl($scope, $routeParams, $location, Holders, AlbumHolding) {
     };
 
     $scope.toggleHolder = function ( holder ) {
-        var obj_albumHolding = { id: holder.id, album_id: holder.album.id, active: !holder.active };
-        var albumHoldingPromise = AlbumHolding.put(obj_albumHolding);
+        var obj_albumHolding = { album_id: holder.album.id, active: !holder.active };
+        var albumHoldingPromise = AlbumHolding.put(holder.id, obj_albumHolding);
         albumHoldingPromise.then(
             // PUT was successful, toggle the holders active property
             function(response) {
@@ -73,12 +74,55 @@ function HoldersCtrl($scope, $routeParams, $location, Holders, AlbumHolding) {
             },
             // PUT was unsuccessful. Notify user
             function(response) {
-                alert("Toggle failed")
+                alert("Toggle failed");
             }
         );
     };
 }
 
-function AddCtrl($scope) {
+function AddCtrl($scope, $routeParams, Artist, Album, AlbumHolding) {
+    $scope.userId = $routeParams.userId;
+
+    $scope.artistSelectedId = null;
+    $scope.albumSelectedId = null;
+    $scope.activeAlbum = true;
+
+    $scope.availableArtists = [];
+    $scope.availableAlbums = [];
+
+    var artistAutocompletePromise = Artist.query_autocomplete();
+    artistAutocompletePromise.then(function(response) {
+        $scope.availableArtists = response.data;
+    });
+
+    $scope.fetchArtistAlbums = function ( id ) {
+        var albumAutocompletePromise = Album.artist_query_autocomplete(id);
+        albumAutocompletePromise.then(function(response) {
+            $scope.availableAlbums = response.data;
+        });
+    }
+
+    $scope.toggleActive = function ( $event ) {
+        var checkbox = $event.target;
+        $scope.activeAlbum = checkbox.checked;
+    }
+
+    $scope.addAlbumHolding = function ( album_id, active ) {
+        var obj_albumHolding = { album_id: album_id, active: active };
+        var albumHoldingPromise = AlbumHolding.create(obj_albumHolding);
+        albumHoldingPromise.then(
+            // POST was successful.
+            function(response) {
+                window.location = '#/' + $routeParams.userId;
+            },
+            // POST was unsuccessful. Notify user
+            function(response) {
+                alert("Album adding failed");
+            }
+        );
+    }
 
 }
+
+
+

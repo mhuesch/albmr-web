@@ -26,8 +26,14 @@ angular.module('albmr.services', ['ngResource']).
             angular.extend(this, data);
         }
 
-        AlbumHolding.put = function(ah) {
-            return $http.put('api/v1/albumholding/' + ah.id + '/', ah, {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
+        AlbumHolding.create = function(ah_obj) {
+            return $http.post('api/v1/albumholding/', ah_obj, {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
+                return response;
+            });
+        };
+
+        AlbumHolding.put = function(id, ah_obj) {
+            return $http.put('api/v1/albumholding/' + id + '/', ah_obj, {headers: {'X-CSRFToken' : csrftoken }}).then(function(response) {
                 return response;
             });
         };

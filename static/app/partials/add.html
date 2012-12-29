@@ -1,1 +1,22 @@
-<p>Album adding is being built. Sorry for any inconvenience</p>
+<div>
+  <div class="artist-widget">
+    <div>
+      Artist name: <autocomplete id="artist_autocomplete" list="availableArtists" selection="artistSelectedId"/>
+    </div>
+
+    <div ng-class="{hidden: artistSelectedId == null}">
+      <div>
+        Album name: <autocomplete id="album_autocomplete" list="availableAlbums" selection="albumSelectedId"/>
+      </div>
+    </div>
+
+    <div ng-class="{hidden: artistSelectedId == null || albumSelectedId == null}">
+      Active album? <input type="checkbox" ng-click="toggleActive($event)" checked>
+    </div>
+
+    <div ng-class="{hidden: albumSelectedId == null}">
+      <button ng-click="addAlbumHolding(albumSelectedId,activeAlbum)">Add album</button>
+    </div>
+  </div>
+
+</div>
